@@ -5,9 +5,10 @@ class Triangle {
     this.lightColor = null;
     this.render = render;
     this.isBackface = false;
+    this.visible = true;
   }
   
-  setColor(color) {
+  setCol(color) {
     this.color = color;
   }
   
@@ -16,6 +17,20 @@ class Triangle {
     this.isBackface = (signedArea >= 0);
     //this.color = this.backface ? color(random(200, 255), 0, 0) : color(0, random(200, 255), 0);
   }
+
+  calculateDotProduct(A, B, C, pos) {
+    // Calculate face normal using cross product
+    let a = B.copy().sub(A);
+    let b = C.copy().sub(A);
+    
+    // We calculate the triangle normal and the vector going from the origin to the light source
+    let faceNormal = createVector(a.y * b.z - a.z * b.y, a.z * b.x - a.x * b.z, a.x * b.y - a.y * b.x);
+    let posNormal = pos.copy().sub(A);
+
+    // Now we calculate the dot product
+    let dotProduct = faceNormal.x * posNormal.x + faceNormal.y * posNormal.y + faceNormal.z * posNormal.z;
+    return dotProduct;
+}
   
   calculateLight(A, B, C, lightPos) {
     // Calculate face normal using cross product
