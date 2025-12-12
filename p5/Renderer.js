@@ -11,13 +11,10 @@ function mergeSort(shapes, cam) {
 function merge(left, right) {
     let sortedArr = [];
     while (left.length && right.length) {
-        if (left[0][1] > right[0][1]) {
-            sortedArr.push(left.shift())
-        } else {
-            sortedArr.push(right.shift())
-        }
+        if (left[0][1] > right[0][1]) sortedArr.push(left.shift());
+        else sortedArr.push(right.shift());
     }
-    return [...sortedArr, ...left, ...right]
+    return [...sortedArr, ...left, ...right];
 }
 
 class Renderer {

@@ -24,7 +24,7 @@ class Camera {
   }
   
   setRot(x, y, z) {
-    this.cam.rot = createVector(x, y, z);
+    this.rot = createVector(x, y, z);
     return this;
   }
   
