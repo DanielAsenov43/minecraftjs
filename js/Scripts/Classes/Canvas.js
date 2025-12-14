@@ -1,4 +1,5 @@
 import { Vector2D } from "./Vector2D.js";
+import { Color } from "./Color.js";
 
 export class Canvas {
     constructor(canvas) {
@@ -6,19 +7,27 @@ export class Canvas {
         this.ctx = canvas.getContext("2d");
         this.width = canvas.clientWidth;
         this.height = canvas.clientHeight;
+        this.active = true;
         this.hasStroke = false;
     }
 
+    setActive(active) {
+        this.active = active;
+        this.canvas.style.cursor = (active) ? "none" : "auto";
+    }
+
+    isActive() { return this.active; }
+
     drawBackground(r, g, b) {
-        this.style(this.color(r, g, b));
+        this.style(new Color(r, g, b));
         this.drawRect(0, 0, this.width, this.height);
     }
 
-    style(fillColor=this.color(255, 255, 255), strokeColor=null, strokeWeight=1) {
-        this.ctx.fillStyle = fillColor;
+    style(fillColor=new Color(255, 255, 255), strokeColor=null, strokeWeight=1) {
+        this.ctx.fillStyle = fillColor.toString();
         this.hasStroke = strokeColor && strokeWeight > 0;
         if(this.hasStroke) {
-            this.ctx.strokeStyle = strokeColor;
+            this.ctx.strokeStyle = strokeColor.toString();
             this.ctx.lineWidth = strokeWeight;
         } else {
             this.hasStroke = false;
@@ -43,7 +52,8 @@ export class Canvas {
         }
     }
 
-    color(r, g, b) {
-        return `rgb(${r}, ${g}, ${b})`;
+    drawText(text, x, y, size=12) {
+        this.ctx.font = `${size}px sans-serif`;
+        this.ctx.fillText(text, x, y);
     }
 }

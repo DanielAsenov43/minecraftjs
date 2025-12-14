@@ -1,31 +1,47 @@
 export class Vector3D {
-    constructor(x, y, z) {
+    constructor(x=0, y=0, z=0) {
         this.x = x;
         this.y = y;
         this.z = z;
     }
 
-    copy() {
-        return {...this};
+    // Main methods
+    setPos(x, y, z) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        return this;
     }
-
-    add(other) {
-        this.x += other.x;
-        this.y += other.y;
-        this.z += other.z;
+    addPos(x, y, z) {
+        this.x += x;
+        this.y += y;
+        this.z += z;
+        return this;
+    }
+    subPos(x, y, z) {
+        this.x -= x;
+        this.y -= y;
+        this.z -= z;
         return this;
     }
 
-    sub(other) {
-        this.x -= other.x;
-        this.y -= other.y;
-        this.z -= other.z;
+    // Alternative methods with other vectors
+
+    set(other) { return this.setPos(other.x, other.y, other.z); }
+    add(other) { return this.addPos(other.x, other.y, other.z); }
+    sub(other) { return this.subPos(other.x, other.y, other.z); }
+
+   
+    // Other methods
+
+    copy() {
+        return new Vector3D(this.x, this.y, this.z);
     }
 
-    mult(scale) {
-        this.x *= scale;
-        this.y *= scale;
-        this.z *= scale;
+    mult(amount) {
+        this.x *= amount;
+        this.y *= amount;
+        this.z *= amount;
         return this;
     }
 
@@ -41,11 +57,11 @@ export class Vector3D {
         return this;
     }
 
-    angleWith(other) {
-        // TODO
+    dot(other) {
+        return this.x * other.x + this.y * other.y + this.z + other.z;
     }
 
-    // Other methods
-    add(x, y, z) { return this.add(new Vector3D(x, y, z)); }
-    sub(x, y, z) { return this.sub(new Vector3D(x, y, z)); }
+    toString() {
+        return `Vector3D(${this.x}, ${this.y}, ${this.z})`;
+    }
 }
