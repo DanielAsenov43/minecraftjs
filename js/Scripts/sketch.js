@@ -15,12 +15,13 @@ export function setCanvas(canvasObj) {
 }
 
 export function start() {
+    canvas.setActive(false);
     camera = new Camera(canvas);
-    renderer = new Renderer(camera).setLightPos(1000, 1000, 0);
-    renderer.addShape(new Cube().setPos(0, 0, 300).setCol(255, 0, 0));
+    renderer = new Renderer(camera).setLightPos(-400, 1000, 0);
+    renderer.addShape(new Cube().setPos(-200).setCol(255, 0, 0));
     player = new Player(camera);
 }
-let i = 0;
+
 export function update(heldKeys_, deltaTime, fps) {
     if(!canvas.isActive()) return;
     heldKeys = heldKeys_;
@@ -35,9 +36,9 @@ export function update(heldKeys_, deltaTime, fps) {
 }
 
 function updatePlayer() {
-    let forwardDir = ("s" in heldKeys) - ("w" in heldKeys);
-    let sidewaysDir = ("a" in heldKeys) - ("d" in heldKeys);
-    let upDir = (" " in heldKeys) - ("Shift" in heldKeys);
+    let forwardDir = ("S" in heldKeys) - ("W" in heldKeys);
+    let sidewaysDir = ("A" in heldKeys) - ("D" in heldKeys);
+    let upDir = (" " in heldKeys) - ("SHIFT" in heldKeys);
     player.moveForward(player.moveSpeed * forwardDir);
     player.moveSideways(player.moveSpeed * sidewaysDir);
     player.move(0, player.moveSpeed * upDir, 0);

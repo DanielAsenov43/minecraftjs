@@ -71,10 +71,10 @@ function setupStyles(canvas) {
 function setupListeners(canvas) {
     canvas.addEventListener("click", Sketch.onClick);
     window.addEventListener("keydown", (event) => {
-        heldKeys[event.key] = true;
+        heldKeys[event.key.toString().toUpperCase()] = true;
     });
     window.addEventListener("keyup", (event) => {
         Sketch.onKeyPress(event);
-        delete heldKeys[event.key];
+        delete heldKeys[event.key.toString().toUpperCase()];
     });
 }
